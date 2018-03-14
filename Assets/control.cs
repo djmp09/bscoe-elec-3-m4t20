@@ -2,28 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
-
+using UnityEngine.SceneManagement;
 
 
 public class control : MonoBehaviour {
     
     Vector3 tempPos,tempRot;
-    float speed = 2f;
-    float zed = 3.72f;
-    public float xMin = -1.09f;
-    public float xMax = 1.09f;
-    public float yMin = -1.16f;
-    public float yMax = 1.16f;
+    float speed = 20f;
+    public float xMin = -30f;
+    public float xMax = 30f;
+    public float yMin = -10f;
+    public float yMax = 30f;
     public float tilt = 5f;
     public float yRotation = 0.0F;
     public float xRotation = 0.0F;
     float xThrow, yThrow;
 
+    [SerializeField] ParticleSystem exp;
+    AudioSource exp_sound;
 
     // Use this for initialization
     void Start ()
     {
-       
+        exp_sound = GetComponent<AudioSource>();
     }
 
     void smoothRotateX()
@@ -104,5 +105,34 @@ public class control : MonoBehaviour {
         //apply movement
        transform.localPosition = tempPos;
 
+    }
+    
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (other.name == "Laser")
+        {
+            exp.Play();
+            if (!exp_sound.isPlaying)
+            {
+                exp_sound.Play();
+            }
+            Invoke("restart", 1f);
+        }
+    }
+
+    void restart()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        restart();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print(other.gameObject.name);
     }
 }
