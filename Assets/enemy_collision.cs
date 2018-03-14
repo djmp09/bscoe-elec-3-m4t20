@@ -5,6 +5,7 @@ using UnityEngine;
 public class enemy_collision : MonoBehaviour {
 
     [SerializeField] ParticleSystem exp;
+    [SerializeField] GameObject turret;
     AudioSource exp_sound;
 
     void Start () {
@@ -24,7 +25,7 @@ public class enemy_collision : MonoBehaviour {
             if (!exp_sound.isPlaying) {
                 exp_sound.Play();
             }
-            Destroy(gameObject, 1f);
+            Destroy(turret, 1f);
         }
     }
 }
