@@ -30,6 +30,12 @@ public class terrain_collision : MonoBehaviour {
             }
             Invoke("restart", 1f);
         }
+        print(col.gameObject.name);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print(other.gameObject.name);
     }
 
     void restart()

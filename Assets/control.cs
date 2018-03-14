@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class control : MonoBehaviour {
     
@@ -20,6 +20,7 @@ public class control : MonoBehaviour {
 
     [SerializeField] ParticleSystem exp;
     AudioSource exp_sound;
+    [SerializeField] Text scoreText;
 
     // Use this for initialization
     void Start ()
@@ -119,10 +120,13 @@ public class control : MonoBehaviour {
             }
             Invoke("restart", 1f);
         }
+        print(other.name);
     }
 
     void restart()
     {
+        Global.score = 0;
+        scoreText.text = "Score: 0";
         SceneManager.LoadScene(1);
     }
 
@@ -134,5 +138,10 @@ public class control : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         print(other.gameObject.name);
+    }
+
+    public class Global
+    {
+        public static int score = 0;
     }
 }
