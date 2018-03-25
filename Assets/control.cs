@@ -120,7 +120,6 @@ public class control : MonoBehaviour {
             }
             Invoke("restart", 1f);
         }
-        print(other.name);
     }
 
     void restart()
